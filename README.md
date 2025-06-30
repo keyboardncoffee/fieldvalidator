@@ -58,6 +58,10 @@ gpr.key=your_github_token
 
 ``` java
 Validator.start()
+    .field("email", user.getEmail()).notBlank().isEmail()
+    .field("age", user.getAge()).greaterThan(17)
+    .validate(); // Throws ValidationException if any rule fails
+
 
 ```
 ### License
