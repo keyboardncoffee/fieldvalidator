@@ -4,7 +4,7 @@
 
 ---
 
-## 🛠 Installation
+## Installation
 
 Available via **GitHub Packages**. Add it using **Maven** or **Gradle**:
 
