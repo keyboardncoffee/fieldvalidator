@@ -22,7 +22,7 @@ java {
 
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/keyboardncoffee/fieldvalidator")
+        url = uri("https://maven.pkg.github.com/keyboardncoffee/filevalidator")
         credentials {
             username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
             password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
@@ -83,4 +83,5 @@ publishing {
             }
         }
     }
+
 }
