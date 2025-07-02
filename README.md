@@ -1,22 +1,77 @@
-# A simple Field Validator
+# FieldValidator
 
-A fluent, expressive validation library for Spring Boot and Java applications.
+**FieldValidator** is a lightweight, fluent validation library for simplifying user input checks in Java applications. It helps you eliminate repetitive `if` statements and makes validations more expressive and readable.
 
-## Quick Example
+---
 
-```java
-FieldValidator.validate()
-    .notEmpty(\"Email\", user.getEmail())
-    .minLength(\"Password\", user.getPassword(), 6)
-    .throwIfInvalid();
+## Installation
 
-## 📦 Installation via GitHub Packages
+Available via **GitHub Packages**. Add it using **Maven** or **Gradle**:
 
-Add to your `pom.xml`:
+### ✅ Maven
 
 ```xml
-<dependency>
-  <groupId>com.keyboardncoffee</groupId>
-  <artifactId>fieldvalidator</artifactId>
-  <version>1.0.0</version>
-</dependency>
+<repositories>
+  <repository>
+    <id>github</id>
+    <url>https://maven.pkg.github.com/keyboardncoffee/fieldvalidator</url>
+  </repository>
+</repositories>
+
+<dependencies>
+  <dependency>
+    <groupId>com.keyboardncoffee</groupId>
+    <artifactId>fieldvalidator</artifactId>
+    <version>1.0.0</version>
+  </dependency>
+</dependencies>
+
+```
+### Gradle
+
+```xml
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/keyboardncoffee/fieldvalidator")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.keyboardncoffee:fieldvalidator:1.0.0'
+}
+
+```
+
+### Tip: Add credentials in ~/.gradle/gradle.properties
+
+```xml
+gpr.user=your_github_username  
+gpr.key=your_github_token
+
+```
+
+### Usage Example
+
+``` java
+Validator.start()
+    .field("email", user.getEmail()).notBlank().isEmail()
+    .field("age", user.getAge()).greaterThan(17)
+    .validate(); // Throws ValidationException if any rule fails
+
+
+```
+### License
+
+MIT License — https://opensource.org/licenses/MIT
+
+### AUTHOR
+Tega Isiboge
+
+isibogetega@gmail.com
+
+https://github.com/keyboardncoffee
+
