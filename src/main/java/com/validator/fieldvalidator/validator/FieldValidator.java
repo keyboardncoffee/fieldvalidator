@@ -12,7 +12,7 @@ import java.util.List;
 public class FieldValidator {
 
     private final List<String> errors = new ArrayList<>();
-    private FieldValidator(){}
+    public FieldValidator(){}
 
     public static FieldValidator validate(){
         return new FieldValidator();
