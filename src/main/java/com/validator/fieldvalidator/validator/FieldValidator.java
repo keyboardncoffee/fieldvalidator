@@ -1,47 +1,77 @@
 package com.validator.fieldvalidator.validator;
 
-import com.validator.fieldvalidator.exception.ValidationException;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Fluent validation utility for simplifying user input checks.
  */
-public class FieldValidator {
+public class FieldValidator<T> {
 
-    private final List<String> errors = new ArrayList<>();
-    public FieldValidator(){}
+    private final T value;
+    private final String fieldName;
 
-    public static FieldValidator validate(){
-        return new FieldValidator();
+    //only accessible from within the class
+    private FieldValidator(T value, String fieldName){
+        this.value = value;
+        this.fieldName = fieldName;
     }
 
-    public FieldValidator notEmpty(String fieldName, String value){
-        if (value== null || value.trim().isEmpty() || value.trim().isBlank()){
-            errors.add(fieldName + "must not be empty or blank");
-        }
-        return this;
+    //uses default field name
+    public static <T> FieldValidator<T> check(T value) {
+        return new FieldValidator<T>(value, "fieldName");
     }
 
-    public FieldValidator notNull(String fieldName, Object value){
+    //uses custom field name
+    public static <T> FieldValidator<T> check(T value, String fieldName) {
+        return new FieldValidator<>(value, fieldName);
+    }
+
+    public FieldValidator<T> notNull(){
         if (value == null){
-            errors.add(fieldName + "is missing, and it is required");
+            throw new NullPointerException(fieldName + "is missing");
         }
         return this;
     }
 
-    public FieldValidator minLength(String fieldName, String value, int min){
-        if (value !=null && value.length() < min){
-            errors.add(fieldName + "must be at least " + min + " characters long. ");
+    public FieldValidator<T> notBlankOrEmpty(){
+        if (value instanceof String){
+            String stringInput = (String) value;
+            if (stringInput.trim().isBlank() || stringInput.trim().isEmpty()){
+                throw new IllegalArgumentException(fieldName + " must not be blank or empty");
+            }
         }
         return this;
     }
 
-    public void throwIfInvalidOrNull(){
-        if (!errors.isEmpty()){
-            throw new ValidationException(String.join("; ", errors));
-        }
-    }
+//    // Checks that the String value has at least a minimum number of characters
+//    public FieldValidator<T> minLength(int length) {
+//        if (value instanceof String) {
+//            String str = (String) value;
+//            if (str.length() < length) {
+//                throw new IllegalArgumentException(fieldName + " must be at least " + length + " characters long");
+//            }
+//        }
+//        return this;
+//    }
+//
+//    // Checks that the String value does not exceed the maximum length
+//    public FieldValidator<T> maxLength(int length) {
+//        if (value instanceof String) {
+//            String str = (String) value;
+//            if (str.length() > length) {
+//                throw new IllegalArgumentException(fieldName + " must be at most " + length + " characters long");
+//            }
+//        }
+//        return this;
+//    }
+//
+//    // Checks that the String value matches the given regex pattern
+//    public FieldValidator<T> matches(String regex) {
+//        if (value instanceof String) {
+//            String str = (String) value;
+//            if (!str.matches(regex)) {
+//                throw new IllegalArgumentException(fieldName + " has an invalid format");
+//            }
+//        }
+//        return this;
+//    }
+
 }
