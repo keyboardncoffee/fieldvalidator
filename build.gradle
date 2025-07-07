@@ -1,0 +1,100 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'com.keyboardncoffee'
+version = '1.0.6'
+description = 'A fluent validation library for simplifying user input checks in Spring Boot'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+    withJavadocJar()
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/keyboardncoffee/fieldvalidator")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:3.5.3"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            groupId = 'com.keyboardncoffee'
+            artifactId = 'fieldvalidator'
+            version = '1.0.6'
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+
+            pom {
+                name = 'FieldValidator'
+                description = 'A fluent validation library for simplifying user input checks in Spring Boot'
+                url = 'https://github.com/keyboardncoffee/fieldvalidator'
+
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'tega'
+                        name = 'Tega Isiboge'
+                        email = 'isibogetega@gmail.com'
+                        url = 'https://github.com/keyboardncoffee'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/keyboardncoffee/fieldvalidator.git'
+                    developerConnection = 'scm:git:ssh://github.com/keyboardncoffee/fieldvalidator.git'
+                    url = 'https://github.com/keyboardncoffee/fieldvalidator'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/keyboardncoffee/fieldvalidator")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
