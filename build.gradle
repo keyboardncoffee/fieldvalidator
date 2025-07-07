@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.keyboardncoffee'
-version = '1.0.6'
+version = '1.0.7'
 description = 'A fluent validation library for simplifying user input checks in Spring Boot'
 
 java {
@@ -46,7 +46,7 @@ publishing {
 
             groupId = 'com.keyboardncoffee'
             artifactId = 'fieldvalidator'
-            version = '1.0.6'
+            version = '1.0.7'
 
             versionMapping {
                 usage('java-api') {
