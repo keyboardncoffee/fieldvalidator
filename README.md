@@ -2,7 +2,7 @@
 
 **FieldValidator** is a lightweight, fluent Java utility that simplifies input validation across Java and Spring applications. It helps developers enforce rules like `notNull`, `notBlankOrEmpty`, and `minLength` without cluttering their code with repetitive `if` statements and custom exceptions.
 
-> Designed by a developer, for developers — because clean input validation shouldn't be a pain.
+> Designed by an engineer, for engineers — because clean input validation shouldn't be a pain.
 
 ---
 
