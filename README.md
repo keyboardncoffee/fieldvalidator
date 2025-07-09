@@ -22,7 +22,7 @@ Available via **GitHub Packages**. Add it using **Maven** or **Gradle**:
   <dependency>
     <groupId>com.keyboardncoffee</groupId>
     <artifactId>fieldvalidator</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.7</version>
   </dependency>
 </dependencies>
 
@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.keyboardncoffee:fieldvalidator:1.0.0'
+    implementation 'com.keyboardncoffee:fieldvalidator:1.0.7'
 }
 
 ```
@@ -57,7 +57,7 @@ gpr.key=your_github_token
 ### Usage Example
 
 ``` java
-Validator.start()
+FieldValidator.check()
     .field("email", user.getEmail()).notBlank().isEmail()
     .field("age", user.getAge()).greaterThan(17)
     .validate(); // Throws ValidationException if any rule fails
