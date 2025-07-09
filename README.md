@@ -14,59 +14,72 @@
 - Zero dependencies — use it anywhere
 - Open for extension: easily add more validations
 
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>com.keyboardncoffee</groupId>
-        <artifactId>fieldvalidator</artifactId>
-        <version>1.0.7</version>
-    </dependency>
-</dependencies>
-
+```
 
 ```
-### Gradle (Groov DSL)
+### Maven
+For your maven applications
+Add the Jitpack repository and dependency to your pom.xml
 
 ```xml
-repositories {
-    maven {
-        url = uri("https://maven.pkg.github.com/keyboardncoffee/fieldvalidator")
-        credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
-            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
-    mavenCentral() // or your custom repo
-}
+<repositories>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
+</repositories>
 
+<dependencies>
+  <dependency>
+    <groupId>com.github.keyboardncoffee</groupId>
+    <artifactId>fieldvalidator</artifactId>
+    <version>v1.0.1</version>
+  </dependency>
+</dependencies>
+
+```
+### Gradle (Groovy DSL)
+For your gradle application built in Java,
+add Jitpack to your settings.gradle
+
+```
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+````
+Then add the dependency in your build.gradle
+
+```
 dependencies {
     implementation 'com.github.keyboardncoffee:fieldvalidator:v1.0.1'
 }
 
-
 ```
-
 ### Gradle (Kotlin DSL)
-```xml
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation("com.keyboardncoffee:fieldvalidator:1.0.7")
-}
-
-
-
-### Tip: Add credentials in ~/.gradle/gradle.properties
-
-```xml
-gpr.user=your_github_username  
-gpr.key=your_github_token
+For your gradle application built in Kotlin,
+add Jitpack to your settings.gradle.kts
 
 ```
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven(url = "https://jitpack.io")
+    }
+}
+```
+Then add the dependency in your build.gradle.kts
 
+```
+dependencies {
+    implementation 'com.github.keyboardncoffee:fieldvalidator:v1.0.1'
+}
+
+```
 
 ### Example Usage
 
@@ -88,14 +101,25 @@ public class UserService {
 }
 
 ```
+### Available validation methods
+
+| Method              | Description                            |
+| ------------------- | -------------------------------------- |
+| `notNull()`         | Ensures the value is not null          |
+| `notBlankOrEmpty()` | Ensures a string is not blank or empty |
+| `minLength(int)`    | Ensures a string has a minimum length  |
+
+
 ### License
 
 MIT License — https://opensource.org/licenses/MIT
 
+### Contributions
+Want to add more validators? Fork the repo, open a PR, or raise an issue.
+Community collaboration is encouraged.
+
 ### AUTHOR
-Tega Isiboge
+Built by 
 
-isibogetega@gmail.com
-
-https://github.com/keyboardncoffee
+### Tega Isiboge - https://github.com/keyboardncoffee
 
