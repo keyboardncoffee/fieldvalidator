@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.keyboardncoffee:fieldvalidator:1.0.7'
+    implementation 'com.github.keyboardncoffee:fieldvalidator:v1.0.1'
 }
 
 
