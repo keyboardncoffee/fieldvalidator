@@ -1,33 +1,32 @@
 # FieldValidator
 
-**FieldValidator** is a lightweight, fluent validation library for simplifying user input checks in Java applications. It helps you eliminate repetitive `if` statements and makes validations more expressive and readable.
+**FieldValidator** is a lightweight, fluent Java utility that simplifies input validation across Java and Spring applications. It helps developers enforce rules like `notNull`, `notBlankOrEmpty`, and `minLength` without cluttering their code with repetitive `if` statements and custom exceptions.
+
+> Designed by a developer, for developers — because clean input validation shouldn't be a pain.
 
 ---
 
-## Installation
+##  Features
 
-Available via **GitHub Packages**. Add it using **Maven** or **Gradle**:
+- Fluent and chainable validation methods
+- Works in both plain Java and Spring projects
+- Clear error messages tied to field names
+- Zero dependencies — use it anywhere
+- Open for extension: easily add more validations
 
-### ✅ Maven
 
 ```xml
-<repositories>
-  <repository>
-    <id>github</id>
-    <url>https://maven.pkg.github.com/keyboardncoffee/fieldvalidator</url>
-  </repository>
-</repositories>
-
 <dependencies>
-  <dependency>
-    <groupId>com.keyboardncoffee</groupId>
-    <artifactId>fieldvalidator</artifactId>
-    <version>1.0.7</version>
-  </dependency>
+    <dependency>
+        <groupId>com.keyboardncoffee</groupId>
+        <artifactId>fieldvalidator</artifactId>
+        <version>1.0.7</version>
+    </dependency>
 </dependencies>
 
+
 ```
-### Gradle
+### Gradle (Groov DSL)
 
 ```xml
 repositories {
@@ -38,13 +37,27 @@ repositories {
             password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
         }
     }
+    mavenCentral() // or your custom repo
 }
 
 dependencies {
     implementation 'com.keyboardncoffee:fieldvalidator:1.0.7'
 }
 
+
 ```
+
+### Gradle (Kotlin DSL)
+```xml
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.keyboardncoffee:fieldvalidator:1.0.7")
+}
+
+
 
 ### Tip: Add credentials in ~/.gradle/gradle.properties
 
@@ -54,14 +67,25 @@ gpr.key=your_github_token
 
 ```
 
-### Usage Example
 
-``` java
-FieldValidator.check()
-    .field("email", user.getEmail()).notBlank().isEmail()
-    .field("age", user.getAge()).greaterThan(17)
-    .validate(); // Throws ValidationException if any rule fails
+### Example Usage
 
+```java
+
+import static com.keyboardncoffee.fieldvalidator.FieldValidator.*;
+
+public class UserService {
+    public void registerUser(String name, String email) {
+        check(name, "Name")
+            .notNull()
+            .notBlankOrEmpty()
+            .minLength(3);
+
+        check(email, "Email")
+            .notNull()
+            .notBlankOrEmpty();
+    }
+}
 
 ```
 ### License
